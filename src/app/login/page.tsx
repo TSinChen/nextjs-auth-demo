@@ -1,25 +1,22 @@
 import { redirect } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { createClient } from '@/services/supabase/server';
-import { logout } from './actions';
+import { login } from './actions';
 
-export default async function Home() {
+export default async function LoginPage() {
   const supabase = await createClient();
 
   const {
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (!user) {
-    redirect('/login');
-  }
+  if (user) redirect('/');
 
   return (
-    <>
-      {user.id}
-      <form>
-        <Button formAction={logout}>登出</Button>
-      </form>
-    </>
+    <form className="flex gap-2">
+      <Button formAction={login} variant="outline">
+        Google 登入
+      </Button>
+    </form>
   );
 }

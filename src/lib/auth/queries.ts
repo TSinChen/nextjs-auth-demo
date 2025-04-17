@@ -1,6 +1,6 @@
 import { createClient } from '@/services/supabase/server';
 
-export const getCurrentUserQuery = async () => {
+export const getUserQuery = async () => {
   const supabase = await createClient();
 
   const {

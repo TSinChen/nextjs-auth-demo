@@ -5,7 +5,7 @@ import {
   Event,
   EventInviteCode,
   UpdateEventPayload,
-} from '@/lib/event/types';
+} from '@/lib/events/types';
 
 export type Database = {
   public: {

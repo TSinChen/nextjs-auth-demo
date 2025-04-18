@@ -1,19 +1,24 @@
 import { createClient } from '@/services/supabase/server';
+import { AuthError } from '../errors/errors';
 
 export const getUserQuery = async () => {
   const supabase = await createClient();
 
   const {
-    data: { user },
+    data: { user: authUser },
+    error: authError,
   } = await supabase.auth.getUser();
 
-  if (!user) return null;
+  if (authError) throw new AuthError(authError.message);
+  if (!authUser) return null;
 
-  const { data: userData } = await supabase
+  const { data: dbUser, error: dbError } = await supabase
     .from('users')
     .select()
-    .eq('id', user.id)
+    .eq('id', authUser.id)
     .single();
 
-  return userData;
+  if (dbError) throw new AuthError(dbError.message);
+
+  return dbUser;
 };

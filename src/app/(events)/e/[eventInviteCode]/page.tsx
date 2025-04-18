@@ -1,5 +1,5 @@
 import { redirect } from 'next/navigation';
-import { getEventByInviteCodeQuery } from '@/lib/event/queries';
+import { getEventByInviteCodeQuery } from '@/lib/events/queries';
 
 export default async function EventPage({
   params,
